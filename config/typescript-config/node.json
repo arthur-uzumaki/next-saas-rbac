@@ -6,6 +6,7 @@
     "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "module": "nodenext",
     "target": "es2022",
+    "noEmit": true,
 
     "strict": true,
     "esModuleInterop": true,
