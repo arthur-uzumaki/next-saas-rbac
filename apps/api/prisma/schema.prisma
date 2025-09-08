@@ -97,8 +97,8 @@ model Organization {
   shouldAttachUserByDomain Boolean @default(false) @map("should_attach_user_by_domain")
   avatarUrl                String? @map("avatar_url")
 
-  owner  User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id")
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("owner_id")
 
   invites Invite[]
   members Member[]
@@ -118,8 +118,8 @@ model Project {
   avatarUrl   String? @map("avatar_url")
 
   organization   Organization @relation(fields: [organizationId], references: [id])
-  owner          User         @relation(fields: [userId], references: [id])
-  userId         String       @map("user_id")
+  owner          User         @relation(fields: [ownerId], references: [id])
+  ownerId        String       @map("owner_id")
   organizationId String       @map("organization_id")
 
   @@map("projects")
