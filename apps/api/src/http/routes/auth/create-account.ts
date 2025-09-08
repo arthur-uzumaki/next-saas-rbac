@@ -8,8 +8,8 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
     '/users',
     {
       schema: {
-        tags: ['create-account'],
-        summary: '',
+        tags: ['auth'],
+        summary: 'create new account',
         body: z.object({
           name: z.string(),
           email: z.email(),
