@@ -1,7 +1,6 @@
 {
   "name": "@saas/api",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "node --watch --no-warnings --experimental-strip-types src/http/server.ts"
   },
@@ -9,6 +8,7 @@
     "@fastify/cors": "^11.1.0",
     "@prisma/client": "6.15.0",
     "@saas/auth": "workspace:*",
+    "argon2": "^0.44.0",
     "fastify": "^5.6.0",
     "fastify-pino-pretty": "^5.2.0",
     "fastify-type-provider-zod": "^6.0.0",

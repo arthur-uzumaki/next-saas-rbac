@@ -1,5 +1,7 @@
+import { prisma } from '../../../lib/prisma.ts'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
+import { hash } from 'argon2'
 
 export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -16,7 +18,29 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (request, reply) => {
-     return 'Create Account'
+      const { email, name, password } = request.body
+
+      const userWitchSameEmail = await prisma.user.findUnique({
+        where: { email },
+      })
+
+      if (userWitchSameEmail) {
+        return reply
+          .status(400)
+          .send({ message: 'user with same e-mail already exists.' })
+      }
+
+      const hashedPassword = await hash(password, { hashLength: 6 })
+
+      await prisma.user.create({
+        data: {
+          name,
+          email,
+          passwordHash: hashedPassword,
+        },
+      })
+
+      return reply.status(201).send()
     }
   )
 }
