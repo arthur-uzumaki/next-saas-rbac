@@ -15,6 +15,12 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
           email: z.email(),
           password: z.string().min(6),
         }),
+        response: {
+          201: z.object({}),
+          400: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {

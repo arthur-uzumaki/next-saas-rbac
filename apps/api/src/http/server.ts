@@ -13,6 +13,7 @@ import { createAccountRoute } from './routes/auth/create-account.ts'
 import { env } from '../env/env.ts'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password.ts'
 import fastifyJwt from '@fastify/jwt'
+import { getProfileRoute } from './routes/auth/get-profile.ts'
 
 const app = fastify({
   logger: {
@@ -53,6 +54,7 @@ app.register(fastifyJwt, {
 
 app.register(createAccountRoute)
 app.register(authenticateWithPasswordRoute)
+app.register(getProfileRoute)
 
 app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')
