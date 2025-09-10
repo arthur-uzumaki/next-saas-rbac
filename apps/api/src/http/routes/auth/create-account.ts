@@ -30,6 +30,15 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
           .send({ message: 'user with same e-mail already exists.' })
       }
 
+      const [, domain] = email.split('@')
+
+      const autoJoinOrganization = await prisma.organization.findFirst({
+        where:{
+          domain,
+          shouldAttachUserByDomain: true
+        }
+      })
+
       const hashedPassword = await hash(password, { hashLength: 6 })
 
       await prisma.user.create({
@@ -37,6 +46,11 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
           name,
           email,
           passwordHash: hashedPassword,
+          member_on: autoJoinOrganization ? {
+            create: {
+              organizationId: autoJoinOrganization.id
+            }
+          } : undefined
         },
       })
 
