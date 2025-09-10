@@ -7,6 +7,7 @@
   "type": "module",
   "dependencies": {
     "@fastify/cors": "^11.1.0",
+    "@fastify/jwt": "^10.0.0",
     "@fastify/swagger": "^9.5.1",
     "@prisma/client": "6.15.0",
     "@saas/auth": "workspace:*",

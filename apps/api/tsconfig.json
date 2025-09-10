@@ -4,9 +4,6 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
+    
   }
 }

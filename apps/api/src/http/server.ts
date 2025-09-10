@@ -11,6 +11,8 @@ import scalar from '@scalar/fastify-api-reference'
 
 import { createAccountRoute } from './routes/auth/create-account.ts'
 import { env } from '../env/env.ts'
+import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password.ts'
+import fastifyJwt from '@fastify/jwt'
 
 const app = fastify({
   logger: {
@@ -45,8 +47,12 @@ app.register(scalar, {
 })
 
 app.register(fastifyCors)
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
 
 app.register(createAccountRoute)
+app.register(authenticateWithPasswordRoute)
 
 app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')

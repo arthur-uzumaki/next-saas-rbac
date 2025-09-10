@@ -33,10 +33,10 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
       const [, domain] = email.split('@')
 
       const autoJoinOrganization = await prisma.organization.findFirst({
-        where:{
+        where: {
           domain,
-          shouldAttachUserByDomain: true
-        }
+          shouldAttachUserByDomain: true,
+        },
       })
 
       const hashedPassword = await hash(password, { hashLength: 6 })
@@ -46,11 +46,13 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
           name,
           email,
           passwordHash: hashedPassword,
-          member_on: autoJoinOrganization ? {
-            create: {
-              organizationId: autoJoinOrganization.id
-            }
-          } : undefined
+          member_on: autoJoinOrganization
+            ? {
+                create: {
+                  organizationId: autoJoinOrganization.id,
+                },
+              }
+            : undefined,
         },
       })
 
