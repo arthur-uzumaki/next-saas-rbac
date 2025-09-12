@@ -2,6 +2,7 @@ import { prisma } from '../../../lib/prisma.ts'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { hash } from 'argon2'
+import { BadRequestError } from '../_errors/bad-request.error.ts'
 
 export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -17,9 +18,7 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
         }),
         response: {
           201: z.object({}),
-          400: z.object({
-            message: z.string(),
-          }),
+        
         },
       },
     },
@@ -31,9 +30,7 @@ export const createAccountRoute: FastifyPluginAsyncZod = async (app) => {
       })
 
       if (userWitchSameEmail) {
-        return reply
-          .status(400)
-          .send({ message: 'user with same e-mail already exists.' })
+        throw new BadRequestError('user with same e-mail already exists.')
       }
 
       const [, domain] = email.split('@')

@@ -14,6 +14,7 @@ import { env } from '../env/env.ts'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password.ts'
 import fastifyJwt from '@fastify/jwt'
 import { getProfileRoute } from './routes/auth/get-profile.ts'
+import { errorHandler } from './error-handler.ts'
 
 const app = fastify({
   logger: {
@@ -29,6 +30,8 @@ const app = fastify({
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
+
+app.setErrorHandler(errorHandler)
 
 if (env.NODE_ENV === 'development') {
   app.register(fastifySwagger, {
