@@ -15,6 +15,8 @@ import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-p
 import fastifyJwt from '@fastify/jwt'
 import { getProfileRoute } from './routes/auth/get-profile.ts'
 import { errorHandler } from './error-handler.ts'
+import { requestPasswordRecoverRoute } from './routes/auth/request-password-recover.ts'
+import { resetPasswordRoute } from './routes/auth/reset-password.ts'
 
 const app = fastify({
   logger: {
@@ -58,6 +60,8 @@ app.register(fastifyJwt, {
 app.register(createAccountRoute)
 app.register(authenticateWithPasswordRoute)
 app.register(getProfileRoute)
+app.register(requestPasswordRecoverRoute)
+app.register(resetPasswordRoute)
 
 app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')
