@@ -2,9 +2,10 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { prisma } from '../../../lib/prisma.ts'
 import { BadRequestError } from '../_errors/bad-request.error.ts'
+import { auth } from '../../middlewares/auth.ts'
 
 export const getProfileRoute: FastifyPluginAsyncZod = async (app) => {
-  app.get(
+  app.register(auth).get(
     '/profile',
     {
       schema: {
@@ -23,7 +24,7 @@ export const getProfileRoute: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (request, reply) => {
-      const { sub } = await request.jwtVerify<{ sub: string }>()
+      const userId = await request.getCurrentUserId()
 
       const user = await prisma.user.findUnique({
         select: {
@@ -33,7 +34,7 @@ export const getProfileRoute: FastifyPluginAsyncZod = async (app) => {
           avatarUrl: true,
         },
         where: {
-          id: sub,
+          id: userId,
         },
       })
 
