@@ -17,6 +17,7 @@ import { getProfileRoute } from './routes/auth/get-profile.ts'
 import { errorHandler } from './error-handler.ts'
 import { requestPasswordRecoverRoute } from './routes/auth/request-password-recover.ts'
 import { resetPasswordRoute } from './routes/auth/reset-password.ts'
+import { authenticateWithGithubRoute } from './routes/auth/authenticate-with-github.ts'
 
 const app = fastify({
   logger: {
@@ -59,6 +60,7 @@ app.register(fastifyJwt, {
 
 app.register(createAccountRoute)
 app.register(authenticateWithPasswordRoute)
+app.register(authenticateWithGithubRoute)
 app.register(getProfileRoute)
 app.register(requestPasswordRecoverRoute)
 app.register(resetPasswordRoute)

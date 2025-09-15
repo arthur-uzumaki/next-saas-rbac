@@ -3,6 +3,7 @@ import { prisma } from '../../../lib/prisma.ts'
 import z from 'zod'
 import { verify } from 'argon2'
 import { BadRequestError } from '../_errors/bad-request.error.ts'
+import { generateToken } from '../../../utils/generate-token.ts'
 
 export const authenticateWithPasswordRoute: FastifyPluginAsyncZod = async (
   app
@@ -21,7 +22,6 @@ export const authenticateWithPasswordRoute: FastifyPluginAsyncZod = async (
           201: z.object({
             token: z.jwt(),
           }),
-         
         },
       },
     },
@@ -50,10 +50,10 @@ export const authenticateWithPasswordRoute: FastifyPluginAsyncZod = async (
         throw new BadRequestError('Invalid credentials')
       }
 
-      const token = await reply.jwtSign(
-        { sub: userFromEmail.id },
-        { sign: { expiresIn: '7d' } }
-      )
+      const token = await generateToken({
+        reply,
+        userId: userFromEmail.id,
+      })
 
       return reply.status(201).send({ token })
     }
