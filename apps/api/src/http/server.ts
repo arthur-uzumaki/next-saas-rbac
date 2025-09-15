@@ -10,7 +10,7 @@ import { fastifySwagger } from '@fastify/swagger'
 import scalar from '@scalar/fastify-api-reference'
 
 import { createAccountRoute } from './routes/auth/create-account.ts'
-import { env } from '../env/env.ts'
+import { env } from '@saas/env'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password.ts'
 import fastifyJwt from '@fastify/jwt'
 import { getProfileRoute } from './routes/auth/get-profile.ts'
@@ -44,6 +44,15 @@ if (env.NODE_ENV === 'development') {
         version: '1.0.0',
         description: 'Full-stack Saas app with multi-tenant & RBAC',
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
     },
     transform: jsonSchemaTransform,
   })
@@ -65,6 +74,6 @@ app.register(getProfileRoute)
 app.register(requestPasswordRecoverRoute)
 app.register(resetPasswordRoute)
 
-app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
+app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')
 })

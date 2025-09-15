@@ -2,7 +2,10 @@
   "name": "@saas/api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node --watch --no-warnings  src/http/server.ts"
+    "dev": "pnpm env:load node --watch --no-warnings  src/http/server.ts",
+    "db:migrate": "pnpm env:load prisma migrate dev",
+    "db:studio": "pnpm env:load prisma studio",
+    "env:load": "dotenv -e ../../.env -- "
   },
   "type": "module",
   "dependencies": {
@@ -11,6 +14,7 @@
     "@fastify/swagger": "^9.5.1",
     "@prisma/client": "6.15.0",
     "@saas/auth": "workspace:*",
+    "@saas/env": "workspace:*",
     "@scalar/fastify-api-reference": "^1.34.6",
     "argon2": "^0.44.0",
     "fastify": "^5.6.0",
@@ -25,6 +29,7 @@
     "@saas/prettier": "workspace:*",
     "@saas/tsconfig": "workspace:*",
     "@types/node": "^24.3.0",
+    "dotenv-cli": "^10.0.0",
     "prisma": "^6.15.0"
   },
   "eslintConfig": {

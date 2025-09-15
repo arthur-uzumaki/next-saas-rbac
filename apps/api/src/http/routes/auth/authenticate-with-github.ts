@@ -1,9 +1,9 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { env } from '../../../env/env.ts'
 import { BadRequestError } from '../_errors/bad-request.error.ts'
 import { prisma } from '../../../lib/prisma.ts'
 import { generateToken } from '../../../utils/generate-token.ts'
+import { env } from '@saas/env'
 
 export const authenticateWithGithubRoute: FastifyPluginAsyncZod = async (
   app
@@ -32,10 +32,7 @@ export const authenticateWithGithubRoute: FastifyPluginAsyncZod = async (
       )
       githubOAuthURL.searchParams.set('client_id', env.GITHUB_CLIENT_ID)
       githubOAuthURL.searchParams.set('client_secret', env.GITHUB_CLIENT_SECRET)
-      githubOAuthURL.searchParams.set(
-        'redirect_uri',
-        'http://localhost:3000/api/auth/callback'
-      )
+      githubOAuthURL.searchParams.set('redirect_uri', env.GITHUB_REDIRECT_URI)
       githubOAuthURL.searchParams.set('code', code)
 
       const githubAccessTokenResponse = await fetch(githubOAuthURL, {
