@@ -19,6 +19,7 @@ import { requestPasswordRecoverRoute } from './routes/auth/request-password-reco
 import { resetPasswordRoute } from './routes/auth/reset-password.ts'
 import { authenticateWithGithubRoute } from './routes/auth/authenticate-with-github.ts'
 import { createOrganizationRoute } from './routes/orgs/create-organization.ts'
+import { getMembershipRoute } from './routes/orgs/get-membership.ts'
 
 const app = fastify({
   logger: {
@@ -75,6 +76,7 @@ app.register(getProfileRoute)
 app.register(requestPasswordRecoverRoute)
 app.register(resetPasswordRoute)
 app.register(createOrganizationRoute)
+app.register(getMembershipRoute)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')

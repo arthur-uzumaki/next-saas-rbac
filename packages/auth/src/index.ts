@@ -16,7 +16,7 @@ import { organizationSubject } from './subjects/organization.ts'
 export * from './models/organization.ts'
 export * from './models/project.ts'
 export * from './models/user.ts'
-
+export * from './roles.ts'
 const appAbilitiesSchema = z.union([
   projectSubject,
   inviteSubject,
