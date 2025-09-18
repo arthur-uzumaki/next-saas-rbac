@@ -9,7 +9,7 @@ type PermissionsByRole = (
 ) => void
 
 export const permissions: Record<Role, PermissionsByRole> = {
-  ADIM(user, { can, cannot }) {
+  ADMIN(user, { can, cannot }) {
     can('manage', 'all')
 
     cannot(['transfer_ownership', 'update'], 'Organization')
