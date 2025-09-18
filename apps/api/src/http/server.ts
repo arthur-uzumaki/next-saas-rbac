@@ -23,6 +23,7 @@ import { getMembershipRoute } from './routes/orgs/get-membership.ts'
 import { getOrganizationRoute } from './routes/orgs/get-organization.ts'
 import { getOrganizationsRoute } from './routes/orgs/get-organizations.ts'
 import { updateOrganizationRoute } from './routes/orgs/update-organization.ts'
+import { shutdownOrganizationRoute } from './routes/orgs/shutdown-organization.ts'
 
 const app = fastify({
   logger: {
@@ -83,6 +84,7 @@ app.register(getMembershipRoute)
 app.register(getOrganizationRoute)
 app.register(getOrganizationsRoute)
 app.register(updateOrganizationRoute)
+app.register(shutdownOrganizationRoute)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')

@@ -9,7 +9,7 @@ import { getUserPermission } from '../../../utils/get-user-permission.ts'
 
 export const updateOrganizationRoute: FastifyPluginAsyncZod = async (app) => {
   app.register(auth).put(
-    '/organizations:/slug',
+    '/organizations/:slug',
     {
       schema: {
         tags: ['organizations'],
