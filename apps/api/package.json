@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "pnpm env:load node --watch --no-warnings  src/http/server.ts",
     "db:migrate": "pnpm env:load prisma migrate dev",
+    "db:generate": "pnpm env:load prisma generate",
     "db:studio": "pnpm env:load prisma studio",
+    "db:seed": "pnpm env:load prisma db seed",
+    "db:reset": "pnpm env:load prisma migrate reset",
     "env:load": "dotenv -e ../../.env -- "
   },
   "type": "module",

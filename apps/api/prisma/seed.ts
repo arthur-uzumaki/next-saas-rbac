@@ -8,6 +8,8 @@ async function seed() {
   await prisma.member.deleteMany()
   await prisma.project.deleteMany()
   await prisma.organization.deleteMany()
+  await prisma.token.deleteMany()
+  await prisma.account.deleteMany()
   await prisma.user.deleteMany()
 
   const passwordHash = await hash('123456')
@@ -55,6 +57,7 @@ async function seed() {
               slug: faker.lorem.slug(5),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
+              
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 anotherUser.id,
@@ -238,7 +241,7 @@ async function seed() {
       },
     },
   })
-    console.log('✅ Database seeded successfully!')
+  console.log('✅ Database seeded successfully!')
 }
 
 seed()
@@ -249,5 +252,4 @@ seed()
   .catch(async (e) => {
     console.error('❌ Error seeding database:', e)
     await prisma.$disconnect()
-    
   })
