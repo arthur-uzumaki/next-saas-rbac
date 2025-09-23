@@ -31,6 +31,7 @@ import { getProjectRoute } from './routes/projects/get-project.ts'
 import { getProjectsRoute } from './routes/projects/get-projects.ts'
 import { updateProjectRoute } from './routes/projects/update-project.ts'
 import { getMembersRoute } from './routes/members/get-members.ts'
+import { updateMemberRoute } from './routes/members/update-member.ts'
 
 const app = fastify({
   logger: {
@@ -86,6 +87,7 @@ app.register(authenticateWithGithubRoute)
 app.register(getProfileRoute)
 app.register(requestPasswordRecoverRoute)
 app.register(resetPasswordRoute)
+
 app.register(createOrganizationRoute)
 app.register(getMembershipRoute)
 app.register(getOrganizationRoute)
@@ -93,12 +95,16 @@ app.register(getOrganizationsRoute)
 app.register(updateOrganizationRoute)
 app.register(shutdownOrganizationRoute)
 app.register(transferOrganizationRoute)
+
 app.register(createProjectRoute)
 app.register(deleteProjectRoute)
 app.register(getProjectRoute)
 app.register(getProjectsRoute)
 app.register(updateProjectRoute)
+
 app.register(getMembersRoute)
+app.register(updateMemberRoute)
+
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')
