@@ -33,6 +33,7 @@ import { updateProjectRoute } from './routes/projects/update-project.ts'
 import { getMembersRoute } from './routes/members/get-members.ts'
 import { updateMemberRoute } from './routes/members/update-member.ts'
 import { removeMemberRoute } from './routes/members/remove-member.ts'
+import { createInviteRoute } from './routes/invites/create-invite.ts'
 
 const app = fastify({
   logger: {
@@ -106,6 +107,8 @@ app.register(updateProjectRoute)
 app.register(getMembersRoute)
 app.register(updateMemberRoute)
 app.register(removeMemberRoute)
+
+app.register(createInviteRoute)
 
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {

@@ -65,9 +65,9 @@ model Invite {
   email String
   role  Role
 
-  author         User?        @relation(fields: [userId], references: [id])
+  author         User?        @relation(fields: [authorId], references: [id])
+  authorId       String?      @map("author_id")
   organization   Organization @relation(fields: [organizationId], references: [id])
-  userId         String?      @map("user_id")
   organizationId String       @map("organization_id")
 
   createdAt DateTime @default(now()) @map("created_at")
