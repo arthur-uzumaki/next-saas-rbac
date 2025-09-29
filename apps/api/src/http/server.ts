@@ -36,6 +36,8 @@ import { removeMemberRoute } from './routes/members/remove-member.ts'
 import { createInviteRoute } from './routes/invites/create-invite.ts'
 import { getInviteRoute } from './routes/invites/get-invite.ts'
 import { getInvitesRoute } from './routes/invites/get-invites.ts'
+import { acceptInviteRoute } from './routes/invites/accept-invite.ts'
+import { rejectInviteRoute } from './routes/invites/reject-invite.ts'
 
 const app = fastify({
   logger: {
@@ -113,6 +115,8 @@ app.register(removeMemberRoute)
 app.register(createInviteRoute)
 app.register(getInviteRoute)
 app.register(getInvitesRoute)
+app.register(acceptInviteRoute)
+app.register(rejectInviteRoute)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running!')
