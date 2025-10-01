@@ -1,5 +1,9 @@
 {
-  "extends":"@saas/tsconfig/node.json",
-  "include": ["src/**/*"
-  ]
+  "extends": "@saas/tsconfig/node.json",
+  "include": ["src/**/*", "@types/*.d.ts"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    
+  }
 }
